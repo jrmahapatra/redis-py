@@ -24,3 +24,12 @@ vim /usr/local/lib/redis-stable/redis.conf
 requirepass YOURPASSPHRASE
 redis-server restart
 ```
+
+## inlcude redis-py
+
+```
+git clone git@github.com:andymccurdy/redis-py.git
+
+or download it
+https://github.com/andymccurdy/redis-py.git
+```

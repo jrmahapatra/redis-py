@@ -16,6 +16,14 @@ class RedisDB:
     def remove(self, keyIndex):
         self.conn.hdel(self.redisKey, keyIndex)
 
+    """
+    Delete all the keys of the currently selected DB. This command never fails.
+    The time-complexity for this operation is O(N), N being the number of keys in the database
+    """
+    def flush(self):
+        self.conn.flushdb()
+        return True
+
     def insert(self, keyIndex,jsonData):
         if self.conn.hexists(self.redisKey, keyIndex):
             self.remove(keyIndex)
@@ -33,30 +41,34 @@ class RedisDB:
             return data
 
 
-obj = RedisDB("customer4") # create redis index as main db 
-
-
-# lets insert some records, 
-customerData = {
-    "name": "Mr. ben",
-    "address": "123 Main Steet",
-    "city": "Chandler",
-    "state": "AZ"
-  }
-obj.insert(123, customerData)
-result = obj.search("123")
-print(result)
-
-customerData = {
-    "name": "Jaakki",
+obj = RedisDB("customer") #customer4 = table name
+# obj.flush()
+#lets insert some records, 
+obj.insert(120, {
+    "name": "Test Customer1",
     "address": "123 Main Steet",
     "city": "Chandler",
     "state": "AZ",
     "sasa":"sasass"
-  }
-obj.insert(123, customerData)
-result = obj.search("123")
+  })
+obj.insert(121, {
+    "name": "Test Customer1",
+    "address": "123 Main Steet",
+    "city": "Chandler",
+    "state": "AZ",
+    "sasa":"sasass"
+  })
+obj.insert(122, {
+    "name": "Test Customer1",
+    "address": "123 Main Steet",
+    "city": "Chandler",
+    "state": "AZ",
+    "sasa":"sasass"
+  })
+# search by index
+result = obj.search("120")
 print(result)
 
-#result = obj.search("123","name")
-#print(result)
+# search by index and a key
+result = obj.search("120","name")
+print(result)
