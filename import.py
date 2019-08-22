@@ -23,18 +23,18 @@ class Import:
         self.cur.close()
         self.con.close()
     
-    def importRecords(self,table,columns,limit=5000):
+    def importRecords(self,table,columns,limit=5):
         query = "select " +  str(columns) +" from "+table
 
         self.cur.execute("select count(*) as total from "+table)
         result = self.cur.fetchone()
-        if int(result['total'])>limit:
+        if limit > int(result['total']):
             total = round(result['total'] / limit)
         else:
             total = 1
             limit = result['total']
 
-        # self.cur.close()
+        # Call Redis class
         objRedis = index.RedisDB("customer")
         objRedis.flush()
 
@@ -50,5 +50,5 @@ class Import:
         self.cur.close()
         self.con.close()
 
-obj = Import("host","username","password","db")
-obj.importRecords("target.office","id, name, created_at")
+#obj = Import("host","username","password","db")
+#obj.importRecords("target.office","id, name, created_at")
