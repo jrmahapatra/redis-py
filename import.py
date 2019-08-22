@@ -2,6 +2,7 @@ import psycopg2
 import psycopg2.extras
 import index
 import math
+import json
 class Import:
     def __init__(self, hostName,userName,passwd,db,dbPort=5439):
         self.con = psycopg2.connect(
@@ -22,7 +23,7 @@ class Import:
         self.cur.close()
         self.con.close()
     
-    def importRecords(self,table,columns,limit=10000):
+    def importRecords(self,table,columns,limit=5000):
         query = "select " +  str(columns) +" from "+table
 
         self.cur.execute("select count(*) as total from "+table)
@@ -34,12 +35,20 @@ class Import:
             limit = result['total']
 
         # self.cur.close()
+        objRedis = index.RedisDB("customer")
+        objRedis.flush()
+
         for x in range(total):
             if x == 0:
                 query+= " limit "+str(limit)
             else:
                 query+= " limit "+str(x*limit)
-            print(query)
             result = self.select(query)
-            print(result)
+            for row in result:
+                objRedis.insert(row['id'],row)
+        print(objRedis.all())
+        self.cur.close()
         self.con.close()
+
+obj = Import("host","username","password","db")
+obj.importRecords("target.office","id, name, created_at")

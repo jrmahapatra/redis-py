@@ -27,7 +27,7 @@ class RedisDB:
     def insert(self, keyIndex,jsonData):
         if self.conn.hexists(self.redisKey, keyIndex):
             self.remove(keyIndex)
-        self.conn.hset(self.redisKey,keyIndex, json.dumps(jsonData))
+        self.conn.hset(self.redisKey,keyIndex, json.dumps(jsonData,default=str))
         return self
 
     def keys(self):
