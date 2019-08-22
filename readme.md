@@ -33,3 +33,17 @@ git clone git@github.com:andymccurdy/redis-py.git
 or download it
 https://github.com/andymccurdy/redis-py.git
 ```
+
+Install Postgress (http://postgresapp.com). Once you do, add the path to Postgres to your .profile file by appending the following:
+
+```
+PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+```
+
+## Instsll psycopg2
+
+```
+pip install --upgrade setuptools
+pip install pyrebase
+pip install psycopg2
+```

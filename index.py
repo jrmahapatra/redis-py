@@ -2,7 +2,7 @@ import redis
 import json
 
 class RedisDB:
-    def __init__(self,redisKey,redisHost="localhost",redsPort=6379,redisDb=0):
+    def __init__(self,redisKey,redisHost="127.0.0.1",redsPort=6379,redisDb=0):
         self.redisKey = redisKey
 
         # We need to create the index such a way so that we can search it easily
@@ -41,34 +41,34 @@ class RedisDB:
             return data
 
 
-obj = RedisDB("customer") #customer4 = table name
+# obj = RedisDB("customer") #customer4 = table name
 # obj.flush()
 #lets insert some records, 
-obj.insert(120, {
-    "name": "Test Customer1",
-    "address": "123 Main Steet",
-    "city": "Chandler",
-    "state": "AZ",
-    "sasa":"sasass"
-  })
-obj.insert(121, {
-    "name": "Test Customer1",
-    "address": "123 Main Steet",
-    "city": "Chandler",
-    "state": "AZ",
-    "sasa":"sasass"
-  })
-obj.insert(122, {
-    "name": "Test Customer1",
-    "address": "123 Main Steet",
-    "city": "Chandler",
-    "state": "AZ",
-    "sasa":"sasass"
-  })
+# obj.insert(120, {
+#     "name": "Test Customer1",
+#     "address": "123 Main Steet",
+#     "city": "Chandler",
+#     "state": "AZ",
+#     "sasa":"sasass"
+#   })
+# obj.insert(121, {
+#     "name": "Test Customer1",
+#     "address": "123 Main Steet",
+#     "city": "Chandler",
+#     "state": "AZ",
+#     "sasa":"sasass"
+#   })
+# obj.insert(122, {
+#     "name": "Test Customer1",
+#     "address": "123 Main Steet",
+#     "city": "Chandler",
+#     "state": "AZ",
+#     "sasa":"sasass"
+#   })
 # search by index
-result = obj.search("120")
-print(result)
+# result = obj.keys()
+# print(result)
 
 # search by index and a key
-result = obj.search("120","name")
-print(result)
+# result = obj.search("120","name")
+# print(result)
